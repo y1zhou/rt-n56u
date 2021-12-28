@@ -1,4 +1,4 @@
-FROM ubuntu:bionic
+FROM ubuntu:20.04
 
 MAINTAINER hanwckf <hanwckf@vip.qq.com>
 
@@ -12,16 +12,35 @@ RUN if test -n "$APT_MIRROR_URL"; then \
 	/etc/apt/sources.list; fi
 
 RUN apt -y -q update && apt -y -q upgrade && \
-	apt install -y -q unzip libtool-bin curl cmake gperf gawk flex bison htop \
-		nano xxd fakeroot cpio git python-docutils gettext automake autopoint \
+	apt install -y -q unzip libtool-bin curl cmake gperf gawk flex bison \
+		xxd fakeroot cpio git python-docutils gettext automake autopoint \
 		texinfo build-essential help2man pkg-config zlib1g-dev libgmp3-dev libmpc-dev \
-		libmpfr-dev libncurses5-dev libltdl-dev wget kmod sudo locales vim && \
+		libmpfr-dev libncurses5-dev libltdl-dev wget kmod sudo locales && \
 	rm -rf /var/cache/apt/
 
 RUN echo 'en_US.UTF-8 UTF-8' > /etc/locale.gen && locale-gen
-
 ENV LANG en_US.utf8
 
-# See https://github.com/hanwckf/padavan-toolchain/releases
-ADD mipsel-linux-uclibc.tar.xz /opt/rt-n56u/toolchain-mipsel/toolchain-3.4.x
+# Copy required files
+COPY ./toolchain-mipsel /buildrom/toolchain-mipsel
+COPY ./trunk /buildrom/trunk
+WORKDIR /buildrom
+
+# Run shell check
+RUN sh /buildrom/trunk/tools/shellcheck.sh
+
+# Prepare toolchain
+RUN cd toolchain-mipsel && sh dl_toolchain.sh
+
+# Start build
+ARG BUILD_VARIANT=mt7621
+ARG PRODUCT_NAME=K2P_nano
+# ARG PRODUCT_NAME=K2P_nano-5.0
+
+RUN cd trunk && \
+	fakeroot ./build_firmware_ci "${PRODUCT_NAME}" && \
+	mv /buildrom/trunk/images /buildrom/ && \
+	./clear_tree_simple > /dev/null 2>&1
+
+CMD bash
 

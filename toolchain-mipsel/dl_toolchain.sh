@@ -1,7 +1,8 @@
 #!/bin/sh
 
 DIR="toolchain-3.4.x"
-DL_NAME="mipsel-linux-uclibc.tar.xz"
+# DL_NAME="mipsel-linux-uclibc.tar.xz"
+DL_NAME="aarch64_mipsel-linux-uclibc.tar.xz"
 DL_URL="https://github.com/hanwckf/padavan-toolchain/releases/download/v1.1/$DL_NAME"
 
 if [ -d $DIR ]; then
