@@ -2,7 +2,7 @@
 
 # GEOIP and GEOSITE files
 GEOIP_VER="https://github.com/Loyalsoldier/geoip/releases/download/202112230051"
-GEOSITE_VER="https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202112272210"
+GEOSITE_VER="https://github.com/Loyalsoldier/domain-list-custom/releases/download/20211228022859"
 
 GEOIP_URL="${GEOIP_VER}/cn.dat"
 GEOSITE_URL="${GEOSITE_VER}/geosite.dat"
@@ -94,8 +94,8 @@ plugin:
 
         - addr: tls://223.5.5.5
           idle_timeout: 30
-        - addr: tls://223.6.6.6
-          idle_timeout: 30
+        #- addr: tls://223.6.6.6
+        #  idle_timeout: 30
 
       ca:
         - /etc_ro/cert.pem
@@ -111,8 +111,8 @@ plugin:
 
         - addr: tls://1.1.1.1
           idle_timeout: 30
-        - addr: tls://1.0.0.1
-          idle_timeout: 30
+        #- addr: tls://1.0.0.1
+        #  idle_timeout: 30
 
         # Google
         - addr: https://dns.google/dns-query
