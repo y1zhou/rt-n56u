@@ -21,16 +21,14 @@ RUN apt -y -q update && apt -y -q upgrade && \
 RUN echo 'en_US.UTF-8 UTF-8' > /etc/locale.gen && locale-gen
 ENV LANG en_US.utf8
 
-# Copy required files
+# Prepare toolchain
 COPY ./toolchain-mipsel /buildrom/toolchain-mipsel
-COPY ./trunk /buildrom/trunk
 WORKDIR /buildrom
+RUN cd toolchain-mipsel && sh dl_toolchain.sh
 
 # Run shell check
+COPY ./trunk /buildrom/trunk
 RUN sh /buildrom/trunk/tools/shellcheck.sh
-
-# Prepare toolchain
-RUN cd toolchain-mipsel && sh dl_toolchain.sh
 
 # Start build
 ARG BUILD_VARIANT=mt7621
@@ -43,4 +41,3 @@ RUN cd trunk && \
 	./clear_tree_simple > /dev/null 2>&1
 
 CMD bash
-
