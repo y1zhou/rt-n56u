@@ -26,10 +26,12 @@ if [ ! -d "$STORAGE_DIR" ];then
 mkdir -p $STORAGE_DIR
 fi
 if [ ! -f "$GEOIP_PATH" ];then
-wget -t5 --timeout=20 --no-check-certificate -O $GEOIP_PATH $GEOIP_URL
+curl --retry 5 --connect-timeout 20 -skL -o $GEOIP_PATH $GEOIP_URL && \
+logger -t $SRC_NAME "Downloaded GEOIP file from $GEOIP_URL"
 fi
 if [ ! -f "$GEOSITE_PATH" ];then
-wget -t5 --timeout=20 --no-check-certificate -O $GEOSITE_PATH $GEOSITE_URL
+curl --retry 5 --connect-timeout 20 -skL -o $GEOSITE_PATH $GEOSITE_URL && \
+logger -t $SRC_NAME "Downloaded GEOSITE file from $GEOSITE_URL"
 fi
 if [ ! -f "$CONF_PATH" ];then
 cat > $CONF_PATH <<EOF
@@ -46,9 +48,9 @@ plugin:
         - mem_cache
         - main_sequence
       server:
-        - addr: 127.0.0.1:5354
+        - addr: "[::]:5354"
           protocol: udp
-        - addr: 127.0.0.1:5354
+        - addr: "[::]:5354"
           protocol: tcp
 
   - tag: main_sequence
