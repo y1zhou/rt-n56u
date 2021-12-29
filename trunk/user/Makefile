@@ -132,6 +132,7 @@ dir_$(CONFIG_FIRMWARE_INCLUDE_RPL2TP)		+= rp-l2tp
 dir_y						+= lldt
 dir_y						+= scripts
 dir_$(CONFIG_FIRMWARE_INCLUDE_SMARTDNS)	+= smartdns
+dir_$(CONFIG_FIRMWARE_INCLUDE_MOSDNS)	+= mosdns
 dir_$(OPENSSH_ENABLED)				+= openssh
 dir_$(DROPBEAR_ENABLED)				+= dropbear
 dir_$(CONFIG_FIRMWARE_INCLUDE_HTOP)		+= htop
