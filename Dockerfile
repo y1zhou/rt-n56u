@@ -13,9 +13,9 @@ RUN if test -n "$APT_MIRROR_URL"; then \
 
 RUN apt -y -q update && apt -y -q upgrade && \
 	apt install -y -q unzip libtool-bin curl cmake gperf gawk flex bison \
-		xxd fakeroot cpio git python-docutils gettext automake autopoint \
-		texinfo build-essential help2man pkg-config zlib1g-dev libgmp3-dev libmpc-dev \
-		libmpfr-dev libncurses5-dev libltdl-dev wget kmod sudo locales && \
+	xxd fakeroot cpio git python-docutils gettext automake autopoint \
+	texinfo build-essential help2man pkg-config zlib1g-dev libgmp3-dev libmpc-dev \
+	libmpfr-dev libncurses5-dev libltdl-dev wget kmod sudo locales && \
 	rm -rf /var/cache/apt/
 
 RUN echo 'en_US.UTF-8 UTF-8' > /etc/locale.gen && locale-gen
@@ -38,7 +38,7 @@ ARG PRODUCT_NAME=K2P_nano
 # ARG PRODUCT_NAME=K2P_nano-5.0
 
 RUN cd trunk && \
-	fakeroot ./build_firmware_ci "${PRODUCT_NAME}" && \
+	fakeroot ./build_firmware_modify "${PRODUCT_NAME}" && \
 	mv /buildrom/trunk/images /buildrom/ && \
 	./clear_tree_simple > /dev/null 2>&1
 

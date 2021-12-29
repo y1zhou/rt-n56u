@@ -20,7 +20,7 @@ extra_test:
 	fi )
 
 clean:
-	rm -rf $(MOSDNS_NAME).zip $(MOSDNS_NAME) $(GEOIP_NAME).dat $(GEOSITE_NAME).dat
+	rm -rf $(MOSDNS_NAME).zip $(MOSDNS_NAME)
 
 romfs:
 ifeq ($(CONFIG_FIRMWARE_INCLUDE_MOSDNS),y)
