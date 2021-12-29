@@ -25,5 +25,6 @@ clean:
 romfs:
 ifeq ($(CONFIG_FIRMWARE_INCLUDE_MOSDNS),y)
 	$(ROMFSINST) -p +x $(THISDIR)/$(MOSDNS_NAME)/mosdns /usr/bin/mosdns
+	$(ROMFSINST) -p +x $(THISDIR)/mosdns.sh /usr/bin/mosdns.sh
 	$(ROMFSINST) $(THISDIR)/cert.pem /etc_ro/cert.pem
 endif

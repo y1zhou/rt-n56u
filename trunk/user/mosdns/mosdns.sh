@@ -161,7 +161,6 @@ func_start
 }
 
 func_iptables(){
-func_ioff
 iptables -t nat -A PREROUTING -p tcp --dport 53 -j REDIRECT --to-port 5354
 iptables -t nat -A PREROUTING -p udp --dport 53 -j REDIRECT --to-port 5354
 logger -t $SRC_NAME "iptables setup done."
@@ -188,10 +187,6 @@ sed -i '/no-resolv/d' /etc/storage/dnsmasq/dnsmasq.conf
 sed -i '/server=127.0.0.1/d' /etc/storage/dnsmasq/dnsmasq.conf
 /sbin/restart_dhcpd
 logger -t $SRC_NAME "dnsmasq cleaned."
-}
-
-func_geo_download(){
-
 }
 
 func_setup(){
@@ -232,14 +227,14 @@ case $ARG1 in
 	"setup")
 		func_setup
 		;;
-	"destory")
-		func_destory
+	"destroy")
+		func_destroy
 		func_stop
 		;;
 	"restart")
 		func_restart
 		;;
 	*)
-		echo "Usage: start/ stop / setup [mode] / destory [mode] / restart"
+		echo "Usage: start / stop / setup [mode] / destroy [mode] / restart"
 		;;
 esac
