@@ -1,5 +1,5 @@
 THISDIR := $(shell pwd)
-MOSDNS_VER := 2.2.2
+MOSDNS_VER := 3.0.0
 MOSDNS_URL_BASE := https://github.com/IrineSistiana/mosdns/releases/download
 
 

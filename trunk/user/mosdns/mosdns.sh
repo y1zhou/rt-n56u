@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # GEOIP and GEOSITE files
-GEOIP_VER="https://github.com/Loyalsoldier/geoip/releases/download/202112230051"
+GEOIP_VER="https://github.com/Loyalsoldier/geoip/releases/download/202112300050"
 GEOSITE_VER="https://github.com/Loyalsoldier/domain-list-custom/releases/download/20211228022859"
 
 GEOIP_URL="${GEOIP_VER}/cn.dat"
@@ -61,16 +61,16 @@ plugin:
             - query_is_ad_domain
           exec:
             - _block_with_nxdomain
-            - _end
+            - _return
 
         - if:
             - query_is_cn
           exec:
             - forward_cn
-            - _end
+            - _return
           else_exec:
             - forward_catchall
-            - _end
+            - _return
 
   - tag: custom_hosts
     type: hosts
