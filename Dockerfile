@@ -1,4 +1,4 @@
-FROM ubuntu:20.04
+FROM ubuntu:20.04 AS buildstage
 
 MAINTAINER hanwckf <hanwckf@vip.qq.com>
 
@@ -40,4 +40,5 @@ RUN cd trunk && \
 	mv /buildrom/trunk/images /buildrom/ && \
 	./clear_tree_simple > /dev/null 2>&1
 
-CMD bash
+FROM scratch
+COPY --from=buildstage /buildrom/images/K2P_3.4.3.9-099.trx .
